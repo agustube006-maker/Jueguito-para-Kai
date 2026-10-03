@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tres retos para ti 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#241552;--lav:#b9a6f0;--mist:#efe8ff;--ink:#2e1a63;--glow:#d9ccff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;min-height:100%;color:var(--mist);font-family:'DM Sans',system-ui,sans-serif;display:flex;justify-content:center;overflow-x:hidden;
+background:radial-gradient(ellipse at 50% 0%,#7b5fd6 0,transparent 55%),linear-gradient(to bottom,var(--deep),#3a2380 60%,#6a4fc4)}
+main{width:100%;max-width:520px;padding:24px 18px 48px;display:flex;flex-direction:column;align-items:center;gap:18px;min-height:100vh;justify-content:center;text-align:center}
+.hand{font-family:'Caveat',cursive;font-weight:700;margin:0;font-size:2.4rem;line-height:1.1}
+p{margin:0}
+.btn{font:700 1.05rem 'DM Sans',sans-serif;border:0;border-radius:999px;padding:13px 26px;cursor:pointer;color:#fff;background:linear-gradient(135deg,#8a6ae6,#6a43d0);box-shadow:0 8px 22px rgba(106,67,208,.5);transition:transform .15s}
+.btn:hover{transform:scale(1.04)}
+.btn:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
+.dots{display:flex;gap:10px}.dots i{width:12px;height:12px;border-radius:50%;background:#ffffff33}.dots i.on{background:var(--glow)}
+.card{width:100%;background:linear-gradient(#f7f2ff,#ece3ff);color:var(--ink);border-radius:14px;padding:22px;font-family:'Caveat',cursive;font-size:1.55rem;line-height:1.3;box-shadow:0 20px 50px rgba(10,5,35,.5);animation:pop .5s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:none}}
+#arena{position:relative;width:100%;height:320px;border-radius:14px;overflow:hidden;background:#ffffff14;border:2px dashed #ffffff40;touch-action:manipulation}
+.h{position:absolute;top:-40px;font-size:34px;border:0;background:none;cursor:pointer;animation:fall linear forwards;padding:0}
+@keyframes fall{to{top:340px}}
+.opt{display:block;width:100%;margin:8px 0;padding:12px;border-radius:12px;border:2px solid #b9a6f0;background:#fff;color:var(--ink);font:700 1rem 'DM Sans',sans-serif;cursor:pointer}
+.opt:hover{background:#efe8ff}
+#react{min-height:1.5em;font-family:'Caveat',cursive;font-size:1.5rem;color:#6a43d0}
+canvas{width:100%;max-width:320px;height:120px;border-radius:12px;touch-action:none;cursor:crosshair;display:block;margin:0 auto}
+.scr{position:relative;width:100%;max-width:320px;margin:0 auto}
+.under{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:10px;font-family:'Caveat',cursive;font-size:1.5rem;color:var(--ink);background:#fff;border-radius:12px;line-height:1.15}
+.petal{position:fixed;top:-30px;pointer-events:none;animation:pf linear forwards;z-index:9}
+@keyframes pf{to{transform:translateY(110vh) rotate(360deg)}}
+.frag{font-size:1.35rem;margin-bottom:12px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important}}
+
+main{position:relative;z-index:1}
+#bg{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;animation:drift 18s ease-in-out infinite alternate}
+.o1{width:340px;height:340px;background:#8a5cf0;left:-90px;top:12%}
+.o2{width:300px;height:300px;background:#c58bff;right:-90px;top:38%;animation-delay:-6s}
+.o3{width:280px;height:280px;background:#5a7bff;left:30%;top:-100px;animation-delay:-10s;opacity:.35}
+@keyframes drift{to{transform:translate(40px,60px) scale(1.15)}}
+.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.12}}
+.moon{position:absolute;right:8%;top:5%;width:68px;height:68px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,#e9defe 60%,#cbb8f7);box-shadow:0 0 60px 20px rgba(217,204,255,.35)}
+#field{position:absolute;left:0;bottom:0;width:100%;height:40%}
+.sw{transform-box:fill-box;transform-origin:50% 100%;animation:sway 4s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){.orb,.star,.sw{animation:none!important}}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:340px}
+.mc{aspect-ratio:1;border:0;border-radius:12px;background:linear-gradient(135deg,#8a6ae6,#6a43d0);color:#fff;font-size:1.8rem;cursor:pointer;box-shadow:0 6px 14px rgba(10,5,35,.4)}
+.mc:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+.mc.up{background:#f7f2ff}
+.mc.ok{background:#d9ccff;box-shadow:0 0 16px #d9ccff}
+</style>
+</head>
+<body>
+<div id="bg" aria-hidden="true"></div>
+<main id="m"></main>
+<script>
+const q = new URLSearchParams(location.search);
+const PARA = q.get('para') || 'Kai', DE = q.get('de') || 'Agustin';
+const m = document.getElementById('m');
+const frags = [
+ 'Hay personas que uno conoce y ya, y otras que de a poco se vuelven tu lugar favorito. Tú te volviste eso para mí, y ni siquiera me di cuenta de cuándo pasó.',
+ 'Me encanta cómo conviertes lo normal en algo que vale la pena recordar. Un mensaje tuyo me cambia el humor, y ese es un superpoder que quizás no sabes que tienes.',
+ 'Pase lo que pase, quédate con esto: eres de esas personas que mejoran cualquier lugar donde están, y yo tuve la suerte de conocerte. Con eso ya estoy feliz.'
+];
+let step = 0, got = [];
+const dots = () => '<div class="dots">' + [0,1,2].map(i => '<i class="' + (i <= step ? 'on' : '') + '"></i>').join('') + '</div>';
+const show = h => { m.innerHTML = h; };
+function petals(n){
+  const set = ['💜','🌸','✨','🪻'];
+  for (let i = 0; i < n; i++){
+    const s = document.createElement('span');
+    s.className = 'petal'; s.textContent = set[i % 4];
+    s.style.left = Math.random()*100 + 'vw'; s.style.fontSize = 16 + Math.random()*22 + 'px';
+    s.style.animationDuration = 3 + Math.random()*4 + 's'; s.style.animationDelay = Math.random() + 's';
+    document.body.appendChild(s); setTimeout(() => s.remove(), 9000);
+  }
+}
+function start(){
+  show('<h1 class="hand" style="font-size:3rem">Hola, ' + PARA + ' 💜</h1><p>Preparé algo para ti, pero está guardado bajo llave. Supera <b>3 retos</b> y te lo voy entregando de a poco.</p><button class="btn" id="go">¡Acepto el reto!</button>');
+  document.getElementById('go').onclick = game1;
+}
+function unlock(i, next){
+  got.push(frags[i]); petals(25);
+  show(dots() + '<div class="card"><p class="frag">🔓 Pedacito ' + (i+1) + ' desbloqueado</p><p>' + frags[i] + '</p></div><button class="btn" id="nx">' + (i < 2 ? 'Siguiente reto' : 'Abrir la carta') + '</button>');
+  document.getElementById('nx').onclick = () => { step++; next(); };
+}
+/* Reto 1: atrapar corazones */
+function game1(){
+  let n = 0, goal = 8;
+  show(dots() + '<h2 class="hand">Reto 1: atrapa corazones</h2><p>Toca <b>8</b> corazones antes de que caigan</p><div id="arena"></div><p id="sc">0 / ' + goal + '</p>');
+  const ar = document.getElementById('arena');
+  const iv = setInterval(() => {
+    const b = document.createElement('button');
+    b.className = 'h'; b.textContent = ['💜','💖','💗','💘'][Math.random()*4|0]; b.setAttribute('aria-label','corazón');
+    b.style.left = Math.random() * (ar.clientWidth - 44) + 'px';
+    b.style.animationDuration = 2.4 + Math.random()*1.4 + 's';
+    b.onclick = () => { b.remove(); n++; document.getElementById('sc').textContent = n + ' / ' + goal; if (n >= goal){ clearInterval(iv); setTimeout(() => unlock(0, game2), 250); } };
+    b.onanimationend = () => b.remove();
+    ar.appendChild(b);
+  }, 650);
+}
+/* Reto 2: test sin respuesta mala */
+const qs = [
+ ['¿Qué haríamos un día aburrido?', ['Maratón de series y snacks 🍿','Caminar sin rumbo 🚶','Inventar un plan tonto 🤪'], 'Me anoto en las tres, qué buen equipo 😎'],
+ ['Si fuéramos un dúo famoso, ¿cuál seríamos?', ['Los que se ríen de todo 😂','Los que ganan por simpatía ✨','Los que pierden pero lo pasan bien 🎉'], 'Dúo oficialmente fundado 🎤'],
+ ['¿Cuánto se ríe Kai con mis chistes malos?', ['Muchísimo 😄','Por compromiso 😅','Me hago el desentendido 🙈'], 'Respuesta aceptada, mis chistes seguirán 🤡']
+];
+function game2(){
+  let i = 0;
+  const render = () => {
+    const [t, o, r] = qs[i];
+    show(dots() + '<h2 class="hand">Reto 2: el test sin respuesta mala</h2><div class="card"><p>' + t + '</p>' + o.map(x => '<button class="opt">' + x + '</button>').join('') + '</div><p id="react"></p>');
+    m.querySelectorAll('.opt').forEach(b => b.onclick = () => {
+      document.getElementById('react').textContent = r;
+      m.querySelectorAll('.opt').forEach(x => x.disabled = true);
+      setTimeout(() => { i++; i < qs.length ? render() : unlock(1, game3); }, 1300);
+    });
+  };
+  render();
+}
+/* Reto 3: memorice */
+function game3(){
+  const em = ['💜','🌸','🦋','🌙','⭐','🍓'];
+  const deck = [...em, ...em].sort(() => Math.random() - .5);
+  let open = [], lock = false, found = 0, moves = 0;
+  show(dots() + '<h2 class="hand">Reto 3: memorice</h2><p>Encuentra las 6 parejas</p><div class="mem">' + deck.map(() => '<button class="mc" aria-label="carta"><span>?</span></button>').join('') + '</div><p id="mv">Intentos: 0</p>');
+  const cards = [...m.querySelectorAll('.mc')];
+  cards.forEach((b, i) => b.onclick = () => {
+    if (lock || b.classList.contains('up')) return;
+    b.classList.add('up'); b.firstChild.textContent = deck[i]; open.push(i);
+    if (open.length === 2){
+      moves++; document.getElementById('mv').textContent = 'Intentos: ' + moves;
+      const [x, y] = open;
+      if (deck[x] === deck[y]){
+        cards[x].classList.add('ok'); cards[y].classList.add('ok'); open = []; found++;
+        if (found === 6) setTimeout(() => unlock(2, finale), 800);
+      } else {
+        lock = true;
+        setTimeout(() => { [x, y].forEach(k => { cards[k].classList.remove('up'); cards[k].firstChild.textContent = '?'; }); open = []; lock = false; }, 800);
+      }
+    }
+  });
+}
+function finale(){
+  petals(70);
+  show('<h1 class="hand" style="font-size:2.8rem">¡Ganaste, ' + PARA + '! 🏆</h1><div class="card" style="text-align:left">' + got.map(x => '<p class="frag">💜 ' + x + '</p>').join('') + '<p style="text-align:right;font-size:1.8rem;margin-top:10px">Con cariño,<br>' + DE + ' 💜</p></div><p>Gracias por regalarme este ratito. Ojalá te hayas reído aunque sea un poquito.</p>');
+}
+function buildBg(){
+  const R = (a, b) => a + Math.random() * (b - a);
+  let h = '<i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><i class="moon"></i>';
+  for (let i = 0; i < 70; i++) h += '<i class="star" style="left:' + R(0,100) + '%;top:' + R(0,62) + '%;animation-delay:' + R(0,3) + 's;opacity:' + R(.4,1) + '"></i>';
+  let v = '<svg id="field" viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice"><path d="M0 130 Q100 100 200 125 T400 115 V200 H0Z" fill="#2d1a6e"/>';
+  [[34,'#5b3fb0','#8a6ae6',45,80],[30,'#7e5cd6','#b9a6f0',32,62]].forEach(([n, stem, bud, a, b]) => {
+    for (let i = 0; i < n; i++){
+      const x = R(0,400), t = R(a,b), d = R(0,4);
+      v += '<g class="sw" style="animation-delay:-' + d + 's"><path d="M' + x + ' 200 L' + x + ' ' + (200 - t) + '" stroke="' + stem + '" stroke-width="1.2"/>';
+      for (let k = 0; k < 5; k++) v += '<ellipse cx="' + x + '" cy="' + (200 - t + k * 6) + '" rx="2.6" ry="4.6" fill="' + bud + '"/>';
+      v += '</g>';
+    }
+  });
+  document.getElementById('bg').innerHTML = h + v + '</svg>';
+}
+buildBg();
+start();
+</script>
+</body>
+</html>
